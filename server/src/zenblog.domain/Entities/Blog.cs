@@ -1,0 +1,11 @@
+namespace zenBlog.domain.Entities;
+
+public class Blog: BaseEntity
+{
+    public string Title { get; set; } = default!;
+    public string ImageUrl { get; set; } = default!;
+    public string CoverImageUrl { get; set; } = default!;
+    public string Content { get; set; } = default!;
+    public Guid CategoryId { get; set; }
+    public Category Category { get; set; } = default!;
+}
