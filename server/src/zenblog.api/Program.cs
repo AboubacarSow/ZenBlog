@@ -1,4 +1,7 @@
+using Carter;
+using Scalar.AspNetCore;
 using zenblog.application.Extensions;
+using zenBlog.api.Middleware;
 using zenBlog.infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,8 +19,10 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.MapScalarApiReference();
 }
-
+app.MapCarter();
+app.UseMiddleware<CustomExceptionHandler>();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

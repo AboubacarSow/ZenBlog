@@ -23,5 +23,5 @@ public interface IRepositoryBase<TEntity> where TEntity : BaseEntity
 }
 public interface IUnitOfWork
 {
-    Task<bool> SaveChangesAsync();
+    Task<bool> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

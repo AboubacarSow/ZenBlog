@@ -2,29 +2,34 @@ namespace zenblog.application.Common.ResultPattern;
 
 public record Result
 {
-    public bool IsSuccess { get; }
-    public Error? Error { get; }
+    public bool IsSuccess { get; } 
+    public IEnumerable<Error>? Errors { get; } = [];
 
     protected Result(bool isSuccess, Error? error)
     {
         IsSuccess = isSuccess;
-        Error = error;
+        if(error is not null)
+        {
+            Errors= [error];
+        }
     }
-
+    public Result() { }
     public static Result Success() => new(true, null);
-    public static Result Failure(Error error) => new(false, error ?? throw new ArgumentNullException(nameof(error)));
+    public static Result Failure(Error error) => new(false, error ?? 
+    throw new ArgumentNullException(nameof(error)));
 
     public static implicit operator Result(Error error) => Failure(error);
 }
 
 public record Result<T> : Result
 {
-    public T? Value { get; }
-
-    private Result(T value) : base(true, null) => Value = value;
+    public T? Data { get; }
+    private Result(T data) : base(true, null) => Data = data;
     private Result(Error error) : base(false, error) { }
 
-    public static implicit operator Result<T>(T value) => new(value);
+    public static Result<T> Success(T data) => new(data);
+
+    public static implicit operator Result<T>(T data) => new(data);
 
     public static implicit operator Result<T>(Error error) => new(error);
 }
@@ -37,8 +42,9 @@ public record Error(string Id, ErrorType Type, string Description);
 public static class Errors
 {
     public static Error NotFound{get;} = new ("NotFound", ErrorType.NotFound, "The requested resource was not found.");
+    public static Error FailedToDelete { get; } = new("FailedToDelete", ErrorType.Validation, "Failed to delete the resource.");
+    public static Error FailedToUpdate { get; } = new("FailedToUpdate", ErrorType.Validation, "Failed to update the resource.");
     public static Error ValidationFailed { get; } = new("ValidationFailed", ErrorType.Validation, "One or more validation errors occurred.");   
-
     public static Error AccountNotFound { get; } = new("AccountNotFound", ErrorType.NotFound, "Account not found.");
     public static Error InsufficientFunds { get; } = new("InsufficientFunds", ErrorType.Validation, "Insufficient balance.");
 }

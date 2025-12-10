@@ -1,18 +1,30 @@
 namespace zenblog.application.Categories.Commands.DeleteCategory;
 
-public record DeleteCategoryCommand(Guid Id): IRequest<bool>;
-internal class DeleteCategoryHandler(IRepositoryBase<Category> _repository,IUnitOfWork unitOfWork)
-    : IRequestHandler<DeleteCategoryCommand, bool>
+public record DeleteCategoryCommand(Guid Id): IRequest<Result<Guid>>;
+
+public class DeleteCategoryValidator : AbstractValidator<DeleteCategoryCommand>
 {
-    public async Task<bool> Handle(DeleteCategoryCommand request, CancellationToken cancellationToken)
+    public DeleteCategoryValidator()
+    {
+        RuleFor(x => x.Id)
+            .NotEmpty().WithMessage("Category ID is required.");
+    }
+}
+internal class DeleteCategoryHandler(IRepositoryBase<Category> _repository,IUnitOfWork unitOfWork)
+    : IRequestHandler<DeleteCategoryCommand, Result<Guid>>
+{
+    public async Task<Result<Guid>> Handle(DeleteCategoryCommand request, CancellationToken cancellationToken)
     {
         var categoryToDelete = await _repository.GetByIdAsync(request.Id)!;
         if(categoryToDelete is null) {
-            // to do
-            return false;
+            return Errors.NotFound;
         }
          _repository.Delete(categoryToDelete);
-
-        return await unitOfWork.SaveChangesAsync();
+        var result = await unitOfWork.SaveChangesAsync(cancellationToken);
+        if(!result)
+        {
+            return Errors.FailedToDelete;
+        }
+        return Result<Guid>.Success(categoryToDelete.Id);
     }
 }
