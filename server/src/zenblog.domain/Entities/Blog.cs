@@ -7,5 +7,6 @@ public class Blog: BaseEntity
     public string CoverImageUrl { get; set; } = default!;
     public string Content { get; set; } = default!;
     public Guid CategoryId { get; set; }
-    public Category Category { get; set; } = default!;
+    public virtual Category Category { get; set; } = default!;
+    public virtual ICollection<Comment> Comments { get; set; } =[];
 }

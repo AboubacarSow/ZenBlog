@@ -10,4 +10,7 @@ global using Microsoft.AspNetCore.Routing;
 global using Microsoft.AspNetCore.Builder;
 global using Microsoft.AspNetCore.Http;
 global using zenblog.application.Common.ResultPattern;
+global using zenblog.application.Blogs.Dtos;
+global using zenblog.application.Comments.Dtos;
+
 

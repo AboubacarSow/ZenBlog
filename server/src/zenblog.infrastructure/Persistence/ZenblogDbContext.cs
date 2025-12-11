@@ -11,4 +11,10 @@ internal class ZenblogDbContext(DbContextOptions<ZenblogDbContext> options): DbC
     internal DbSet<Message> Messages { get; set; }
     internal DbSet<SocialMedia> SocialMedias { get; set; }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseLazyLoadingProxies();
+        base.OnConfiguring(optionsBuilder);
+    }
+
 }
