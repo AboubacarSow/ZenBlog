@@ -13,5 +13,6 @@ global using zenblog.application.Common.ResultPattern;
 global using zenblog.application.Blogs.Dtos;
 global using zenblog.application.Comments.Dtos;
 global using zenblog.application.ContactInfos.Dtos;
+global using zenblog.application.SocialMedias.Dtos;
 
 

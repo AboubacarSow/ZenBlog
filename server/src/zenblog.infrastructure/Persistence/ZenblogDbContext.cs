@@ -1,6 +1,7 @@
 namespace zenblog.infrastructure.Persistence;
 
-internal class ZenblogDbContext(DbContextOptions<ZenblogDbContext> options): DbContext(options)
+internal class ZenblogDbContext(DbContextOptions<ZenblogDbContext> options):
+ IdentityDbContext<ApplicationUser,IdentityRole<Guid>, Guid>(options)
 {
     internal DbSet<Blog> Blogs { get; set; } = default!;
     internal DbSet<Category> Categories { get; set; }= default!;

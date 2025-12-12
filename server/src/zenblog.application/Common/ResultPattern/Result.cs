@@ -34,7 +34,7 @@ public record Result<T> : Result
     public static implicit operator Result<T>(Error error) => new(error);
 }
 
-public enum ErrorType { NotFound, Validation, Unauthorized}
+public enum ErrorType { NotFound, Validation, Unauthorized, EntityFrameworkCore}
 
 public record Error(string Id, ErrorType Type, string Description);
 
@@ -42,8 +42,9 @@ public record Error(string Id, ErrorType Type, string Description);
 public static class Errors
 {
     public static Error NotFound{get;} = new ("NotFound", ErrorType.NotFound, "The requested resource was not found.");
-    public static Error FailedToDelete { get; } = new("FailedToDelete", ErrorType.Validation, "Failed to delete the resource.");
-    public static Error FailedToUpdate { get; } = new("FailedToUpdate", ErrorType.Validation, "Failed to update the resource.");
+    public static Error FailedToDelete { get; } = new("FailedToDelete", ErrorType.EntityFrameworkCore, "Failed to delete the resource.");
+    public static Error FailedToUpdate { get; } = new("FailedToUpdate", ErrorType.EntityFrameworkCore, "Failed to update the resource.");
+    public static Error FailedToCreate { get; } = new("FailedToCreate", ErrorType.EntityFrameworkCore, "Failed to create the resource.");
     public static Error ValidationFailed { get; } = new("ValidationFailed", ErrorType.Validation, "One or more validation errors occurred.");   
     public static Error AccountNotFound { get; } = new("AccountNotFound", ErrorType.NotFound, "Account not found.");
     public static Error InsufficientFunds { get; } = new("InsufficientFunds", ErrorType.Validation, "Insufficient balance.");

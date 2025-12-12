@@ -6,3 +6,5 @@ global using zenblog.domain.Repositories;
 global using zenblog.infrastructure.Repositories;
 global using System.Linq.Expressions;
 global using zenBlog.domain.Entities;
+global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+global using Microsoft.AspNetCore.Identity;

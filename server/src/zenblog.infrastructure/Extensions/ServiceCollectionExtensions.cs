@@ -6,6 +6,14 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         // Infrastructure services registration goes here
+        services.AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>
+        {
+            options.SignIn.RequireConfirmedAccount=true;
+            options.User.RequireUniqueEmail=true;
+            options.Password.RequiredLength=6;
+        }).AddEntityFrameworkStores<ZenblogDbContext>()
+        .AddDefaultTokenProviders();
+
         services.AddDbContext<ZenblogDbContext>(options =>
         {
             options.AddInterceptors(new AuditableEntityIntercepter());

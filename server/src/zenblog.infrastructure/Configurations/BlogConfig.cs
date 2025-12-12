@@ -11,4 +11,4 @@ public class BlogConfig : IEntityTypeConfiguration<Blog>
                .HasForeignKey(c => c.BlogId)
                .OnDelete(DeleteBehavior.Cascade);
     }
-}   
+}
