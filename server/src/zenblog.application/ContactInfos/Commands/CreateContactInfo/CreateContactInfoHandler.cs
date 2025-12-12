@@ -3,8 +3,7 @@ namespace zenblog.application.ContactInfos.Commands.CreateContactInfo;
 public record CreateContactInfoCommand(
     string Address,
     string Email,
-    string Phone,
-    string? MapUrl
+    string Phone
 ) : IRequest<Result<Guid>>;
 
 
@@ -21,9 +20,7 @@ public class CreateContactInfoValidator : AbstractValidator<CreateContactInfoCom
         RuleFor(x => x.Phone)
             .NotEmpty().WithMessage("Phone number is required.");
 
-        RuleFor(x => x.MapUrl)
-            .Must(x => string.IsNullOrWhiteSpace(x) || Uri.IsWellFormedUriString(x, UriKind.Absolute))
-            .WithMessage("Map URL must be a valid URL.");
+       
     }
 }
 

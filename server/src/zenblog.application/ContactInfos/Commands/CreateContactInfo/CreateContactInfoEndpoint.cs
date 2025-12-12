@@ -5,7 +5,7 @@ public class CreateContactInfoEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("/api/contact-info", async (
+        app.MapPost("/api/contact-infos", async (
             CreCreateContactInfoRequest request,
             ISender sender) =>
         {
@@ -16,7 +16,7 @@ public class CreateContactInfoEndpoint : ICarterModule
                 : Results.BadRequest(result);
         })
         .WithName("CreateContactInfo")
-        .WithTags("ContactInfo")
+        .WithTags("ContactInfos")
         .Produces<Result<Guid>>(StatusCodes.Status201Created)
         .Produces<Result>(StatusCodes.Status400BadRequest)
         .WithDescription("Creates ContactInfo");

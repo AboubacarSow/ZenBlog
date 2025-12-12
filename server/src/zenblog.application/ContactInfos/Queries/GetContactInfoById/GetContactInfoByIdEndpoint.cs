@@ -4,7 +4,7 @@ public class GetContactInfoByIdEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("/api/contactinfos/{id:guid}", async (ISender sender, Guid id) =>
+        app.MapGet("/api/contact-infos/{id:guid}", async (ISender sender, Guid id) =>
         {
             var result = await sender.Send(new GetContactInfoByIdQuery(id));
             if (!result.IsSuccess)
