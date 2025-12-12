@@ -12,6 +12,11 @@ public class GetCommentByIdEndpoint : ICarterModule
                 return Results.NotFound(result.Errors!.FirstOrDefault()!.Description);
             }
             return Results.Ok(new GetCommentByIdResponse(result.Data!));
-        });
+        }).WithName("GetCommentById")
+        .WithTags("Comments")
+        .WithDescription("Fetches a comment using its unique identifier.")
+        .Produces<GetCommentByIdResponse>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status404NotFound)
+        .ProducesProblem(StatusCodes.Status500InternalServerError);;
     }
 }

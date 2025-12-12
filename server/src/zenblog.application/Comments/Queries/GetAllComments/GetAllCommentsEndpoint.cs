@@ -15,6 +15,12 @@ public class GetAllCommentsEndpoint : ICarterModule
                 return Results.BadRequest(result.Errors);
             }
             return Results.Ok(new GetCommentsResponse(result.Data!));
-        });
+        })
+        .WithName("GetAllComments")
+        .WithTags("Comments")
+        .WithDescription("Returns a collection of all comments stored in the system.")
+        .Produces<GetCommentsResponse>(StatusCodes.Status200OK)
+        .Produces<IEnumerable<Error>>(StatusCodes.Status400BadRequest)
+        .ProducesProblem(StatusCodes.Status500InternalServerError);
     }
 }

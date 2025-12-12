@@ -13,7 +13,6 @@ public class GetSocialMediaByIdEndpoint : ICarterModule
             return Results.Ok(new GetSocialMediaByIdResponse(result.Data));
         }).WithName("GetSocialMediaById")
         .WithTags("SocialMedia")
-        .WithSummary("Get a social media entry by ID")
         .WithDescription("Retrieves a specific social media link using its unique identifier.")
         .Produces<GetSocialMediaByIdResponse>(StatusCodes.Status200OK)
         .ProducesProblem(StatusCodes.Status404NotFound);

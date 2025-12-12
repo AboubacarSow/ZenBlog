@@ -4,7 +4,7 @@ public class CreateSocialMediaEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("/socialmedias", async (CreateSocialMediaCommand cmd, ISender sender) =>
+        app.MapPost("api/socialmedias", async (CreateSocialMediaCommand cmd, ISender sender) =>
         {
             var result = await sender.Send(cmd);
             if(!result.IsSuccess) return Results.BadRequest(result);
@@ -12,7 +12,6 @@ public class CreateSocialMediaEndpoint : ICarterModule
         })
         .WithName("CreateSocialMedia")
         .WithTags("SocialMedia")
-        .WithSummary("Create a new social media entry")
         .WithDescription("Adds a new social media link to the system.")
         .Produces<Guid>(StatusCodes.Status201Created)
         .ProducesProblem(StatusCodes.Status400BadRequest);

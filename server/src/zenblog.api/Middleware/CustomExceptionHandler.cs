@@ -1,18 +1,16 @@
 using System.ComponentModel.DataAnnotations;
-using zenblog.application.Common.ResultPattern;
 
 namespace zenBlog.api.Middleware;
 
-public class CustomExceptionHandler(RequestDelegate next, ILogger<CustomExceptionHandler> logger): IMiddleware
+internal class CustomExceptionHandler( ILogger<CustomExceptionHandler> logger): IMiddleware
 {
-    private readonly RequestDelegate _next = next;
     private readonly ILogger<CustomExceptionHandler> _logger = logger;
 
-    public async Task InvokeAsync(HttpContext context)
+    public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
         try
         {
-            await _next(context);
+            await next(context);
         }
         catch(ValidationException exception)
         {
@@ -36,8 +34,4 @@ public class CustomExceptionHandler(RequestDelegate next, ILogger<CustomExceptio
         }
     }
 
-    public Task InvokeAsync(HttpContext context, RequestDelegate next)
-    {
-        throw new NotImplementedException();
-    }
 }

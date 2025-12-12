@@ -12,7 +12,7 @@ public class DeleteMessageEndpoint : ICarterModule
             return Results.NoContent();
         })
         .WithName("DeleteMessage")
-        .WithSummary("Delete a message by its Id")
+        .WithTags("Messages")
         .WithDescription("Deletes a message and returns its Id.")
         .Produces<Guid>(StatusCodes.Status200OK)
         .ProducesProblem(StatusCodes.Status404NotFound)

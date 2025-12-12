@@ -4,7 +4,7 @@ public class CreateMessageEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("messages", async (CreateMessageCommand command, ISender sender) =>
+        app.MapPost("api/messages", async (CreateMessageCommand command, ISender sender) =>
         {
             var result = await sender.Send(command);
 
@@ -12,7 +12,7 @@ public class CreateMessageEndpoint : ICarterModule
             return Results.CreatedAtRoute($"api/messages/{result.Data}",result.Data);
         })
         .WithName("CreateMessage")
-        .WithSummary("Create a new message")
+        .WithTags("Messages")
         .WithDescription("Creates a new message and returns the generated Id.")
         .Produces<Guid>(StatusCodes.Status201Created)
         .ProducesProblem(StatusCodes.Status400BadRequest);

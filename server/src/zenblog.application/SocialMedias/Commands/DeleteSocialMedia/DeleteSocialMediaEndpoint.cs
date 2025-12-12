@@ -4,7 +4,7 @@ public class DeleteSocialMediaEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapDelete("/socialmedias/{id:guid}", async (Guid id, ISender sender) =>
+        app.MapDelete("api/socialmedias/{id:guid}", async (Guid id, ISender sender) =>
         {
             var result = await sender.Send(new DeleteSocialMediaCommand(id));
             if(!result.IsSuccess) return Results.Problem(result.Errors!.First().Description);
@@ -12,7 +12,6 @@ public class DeleteSocialMediaEndpoint : ICarterModule
         })
         .WithName("DeleteSocialMedia")
         .WithTags("SocialMedia")
-        .WithSummary("Delete a social media entry")
         .WithDescription("Removes a social media link by its ID.")
         .Produces<Guid>(StatusCodes.Status200OK)
         .ProducesProblem(StatusCodes.Status404NotFound);

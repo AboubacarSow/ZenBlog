@@ -20,6 +20,12 @@ public class UpdateBlogEndpoint : ICarterModule
                 return Results.BadRequest(result.Errors);
             }
             return Results.Ok(new UpdateBlogResponse(result.Data));
-        });
+        }).WithName("UpdateBlog")
+        .WithTags("Blogs")
+        .WithDescription("Updates the title, content, or other properties of an existing blog identified by its ID.")
+        .Produces<UpdateBlogResponse>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status400BadRequest)   // ID mismatch or validation errors
+        .Produces(StatusCodes.Status404NotFound)     // Blog not found (if your handler returns NotFound)
+        .ProducesProblem(StatusCodes.Status500InternalServerError);;
     }
 }

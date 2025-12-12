@@ -16,7 +16,12 @@ public class DeleteBlogEndpoint : ICarterModule
                 return Results.BadRequest(result.Errors);
             }
             return Results.Ok(new DeleteBlogResponse());
-        });
+        }).WithName("DeleteBlog")
+        .WithTags("Blogs")
+        .WithDescription("Removes the specified blog from the system using its unique identifier.")
+        .Produces<DeleteBlogResponse>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status404NotFound)
+        .ProducesProblem(StatusCodes.Status500InternalServerError);;
     }
 }
 

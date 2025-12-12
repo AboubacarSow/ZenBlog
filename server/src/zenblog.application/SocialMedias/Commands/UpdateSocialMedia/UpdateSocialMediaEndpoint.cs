@@ -15,7 +15,6 @@ public class UpdateSocialMediaEndpoint : ICarterModule
         })
         .WithName("UpdateSocialMedia")
         .WithTags("SocialMedia")
-        .WithSummary("Update a social media entry")
         .WithDescription("Updates a specific social media link by its ID.")
         .Produces<Guid>(StatusCodes.Status200OK)
         .ProducesProblem(StatusCodes.Status404NotFound);
