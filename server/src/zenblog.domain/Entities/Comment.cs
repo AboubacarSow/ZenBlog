@@ -10,4 +10,13 @@ public class Comment : BaseEntity
     public Guid? ParentCommentId { get; set; }
     public virtual Comment? ParentComment { get; set; }
     public virtual ICollection<Comment> Replies { get; set; } = [];
+
+    public void Edit(Comment comment)
+    {
+        Name = comment.Name;
+        Email = comment.Email;
+        Content = comment.Content;
+        BlogId = comment.BlogId;
+        ParentCommentId = comment.ParentCommentId;
+    }
 }

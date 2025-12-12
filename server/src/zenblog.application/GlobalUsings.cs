@@ -12,5 +12,6 @@ global using Microsoft.AspNetCore.Http;
 global using zenblog.application.Common.ResultPattern;
 global using zenblog.application.Blogs.Dtos;
 global using zenblog.application.Comments.Dtos;
+global using zenblog.application.ContactInfos.Dtos;
 
 

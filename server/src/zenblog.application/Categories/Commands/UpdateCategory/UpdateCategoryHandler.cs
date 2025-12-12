@@ -12,7 +12,7 @@ public class UpdateCategoryValidator : AbstractValidator<UpdateCategoryCommand>
     }
 }
 
-internal class UpdateCategoryHandler(IRepositoryBase<Category> _repository,IUnitOfWork unitOfWork, IMapper _mapper)
+internal class UpdateCategoryHandler(IRepositoryBase<Category> _repository,IUnitOfWork unitOfWork)
     : IRequestHandler<UpdateCategoryCommand, Result<bool>>
 {
     public async Task<Result<bool>> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
