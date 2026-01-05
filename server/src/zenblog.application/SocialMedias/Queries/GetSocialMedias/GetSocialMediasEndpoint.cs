@@ -11,7 +11,7 @@ public class GetSocialMediasEndpoint : ICarterModule
             return Results.Ok(new GetSocialMediasResponse(result.Data));
         })
         .WithName("GetSocialMedias")
-        .WithTags("SocialMedia")
+        .WithTags("SocialMedias")
         .WithDescription("Returns a list of all available social media entries.")
         .Produces<IEnumerable<SocialMediaDto>>(StatusCodes.Status200OK)
         .ProducesProblem(StatusCodes.Status400BadRequest);

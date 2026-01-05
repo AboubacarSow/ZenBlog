@@ -8,10 +8,10 @@ public class CreateSocialMediaEndpoint : ICarterModule
         {
             var result = await sender.Send(cmd);
             if(!result.IsSuccess) return Results.BadRequest(result);
-            return Results.Created($"/socialmedias/{result.Data}", result.Data);
+            return Results.Created($"api/socialmedias/{result.Data}", result.Data);
         })
         .WithName("CreateSocialMedia")
-        .WithTags("SocialMedia")
+        .WithTags("SocialMedias")
         .WithDescription("Adds a new social media link to the system.")
         .Produces<Guid>(StatusCodes.Status201Created)
         .ProducesProblem(StatusCodes.Status400BadRequest);

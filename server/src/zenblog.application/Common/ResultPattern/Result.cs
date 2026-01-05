@@ -34,7 +34,7 @@ public record Result<T> : Result
     public static implicit operator Result<T>(Error error) => new(error);
 }
 
-public enum ErrorType { NotFound, Validation, Unauthorized, EntityFrameworkCore}
+public enum ErrorType { NotFound, Validation, Unauthorized, EntityFrameworkCore,IdentityResult}
 
 public record Error(string Id, ErrorType Type, string Description);
 
@@ -48,4 +48,5 @@ public static class Errors
     public static Error ValidationFailed { get; } = new("ValidationFailed", ErrorType.Validation, "One or more validation errors occurred.");   
     public static Error AccountNotFound { get; } = new("AccountNotFound", ErrorType.NotFound, "Account not found.");
     public static Error InsufficientFunds { get; } = new("InsufficientFunds", ErrorType.Validation, "Insufficient balance.");
+    public static Error FailedToCreateUser{get;}= new("RegisterUser",ErrorType.IdentityResult,"Creation of new user failded");
 }

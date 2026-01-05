@@ -12,6 +12,8 @@ public class ApplicationUser : IdentityUser<Guid>
     public Address Address { get; set; } = new();
     public DateTime CreatedOn { get; set; } = default!;
     public DateTime LastModifiedOn { get ; set ; }
+    public string? RefreshToken {get;set;}= default!;
+    public DateTime RefreshTokenExpiresTime{get;set;} = default!;
     public override string? Email
     {
         get => base.Email!;
@@ -42,6 +44,7 @@ public class Address
     public string? City { get; set; } = default!;
     public string? Street { get; set; } = default!;
     public string? PostalCode { get; set; } = default!;
+
 
     public Address() { }
     public Address(string country, string city, string street, string postalCode)
