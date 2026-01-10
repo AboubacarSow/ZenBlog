@@ -8,7 +8,7 @@ public class ApplicationUser : IdentityUser<Guid>
     public string LastName{get;set;}= default!;
     public virtual  ICollection<Blog> Blogs {get;private set;} = [];
     public void AddBlog(Blog blog) => Blogs.Add(blog);
-    public string ImageUrl { get; set; } = default!;
+    public string? ImageUrl { get; set; } = default!;
     public Address Address { get; set; } = new();
     public DateTime CreatedOn { get; set; } = default!;
     public DateTime LastModifiedOn { get ; set ; }

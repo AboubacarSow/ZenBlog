@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using zenblog.infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using zenblog.infrastructure.Persistence;
 namespace zenblog.infrastructure.Migrations
 {
     [DbContext(typeof(ZenblogDbContext))]
-    partial class ZenblogDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260110062512_EditApplicationUserToken")]
+    partial class EditApplicationUserToken
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -184,6 +187,7 @@ namespace zenblog.infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageUrl")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("LastModifiedOn")

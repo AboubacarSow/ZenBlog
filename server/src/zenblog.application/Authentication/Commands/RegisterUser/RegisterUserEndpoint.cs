@@ -1,6 +1,4 @@
 namespace zenblog.application.Authentication.Commands.RegisterUser;
-
-
 public record RegisterUserRequest(RegisterUserCommand Command);
 public class RegisterUserEndpoint : ICarterModule
 {

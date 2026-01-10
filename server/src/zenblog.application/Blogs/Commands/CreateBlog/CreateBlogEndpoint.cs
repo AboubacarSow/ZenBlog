@@ -1,17 +1,21 @@
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+
 namespace zenblog.application.Blogs.Commands.CreateBlog;
 
 
 public record CreateBlogResponse(Guid BlogId);
 public record CreateBlogRequest(
-    CreateBlogCommand Request
+    CreateBlogCommand Blog
 );
 public class CreateBlogEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("/api/blogs", async (CreateBlogRequest request, ISender sender) =>
+        app.MapPost("/api/blogs", async ([FromBody]CreateBlogRequest request, ISender sender, ClaimsPrincipal user) =>
         {
-            var command = request.Request;
+            var command = request.Blog;
+            command.AuthorId = Guid.Parse(user.FindFirstValue(ClaimTypes.NameIdentifier)!);
             var result = await sender.Send(command);
             if (!result.IsSuccess)
             {
@@ -23,6 +27,7 @@ public class CreateBlogEndpoint : ICarterModule
         .Produces<Guid>(StatusCodes.Status201Created)
         .Produces(StatusCodes.Status400BadRequest)
         .WithName("CreateBlog")
-        .WithDescription("Creates a new blog");
+        .WithDescription("Creates a new blog")
+        .RequireAuthorization();
     }
 }

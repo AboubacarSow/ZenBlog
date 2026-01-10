@@ -1,37 +1,51 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
 
 namespace zenBlog.api.Middleware;
 
-internal class CustomExceptionHandler( ILogger<CustomExceptionHandler> logger): IMiddleware
+internal class CustomExceptionHandler( ILogger<CustomExceptionHandler> logger): IExceptionHandler
 {
     private readonly ILogger<CustomExceptionHandler> _logger = logger;
 
-    public async Task InvokeAsync(HttpContext context, RequestDelegate next)
+    public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception exception, CancellationToken cancellationToken)
     {
-        try
+        logger.LogError(
+            "Error Message: {exceptionMessage}, Time of occurrence {time}",
+            exception.Message, DateTime.UtcNow);
+
+        (string Detail, string Title, int StatusCode) details = exception switch
         {
-            await next(context);
-        }
-        catch(ValidationException exception)
+            ValidationException =>
+            (
+                exception.Message,
+                exception.GetType().Name,
+                context.Response.StatusCode = StatusCodes.Status400BadRequest
+            ),
+            
+            _ =>
+            (
+                exception.Message,
+                exception.GetType().Name,
+                context.Response.StatusCode = StatusCodes.Status500InternalServerError
+            )
+        };
+
+        var problemDetails = new ProblemDetails
         {
-            _logger.LogWarning(exception, "A validation exception occurred.");
-            context.Response.StatusCode = StatusCodes.Status400BadRequest;
-            context.Response.ContentType = "application/json";
-           var response = new 
-            { 
-                Message = "One or more validation errors occurred.",
-                Errors = exception.ValidationResult.MemberNames.Select(name => new { Field = name, Error = exception.ValidationResult.ErrorMessage })
-            };
-            await context.Response.WriteAsJsonAsync(response);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "An unhandled exception occurred.");
-            context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-            context.Response.ContentType = "application/json";
-            var response = new { Message = "An unexpected error occurred. Please try again later." };
-            await context.Response.WriteAsJsonAsync(response);
-        }
+            Title = details.Title,
+            Status = details.StatusCode,
+            Detail = details.Detail,
+            Instance = context.Request.Path
+        };
+
+        problemDetails.Extensions.Add("TraceId", context.TraceIdentifier);
+        if (exception is FluentValidation.ValidationException validationException)
+            problemDetails.Extensions.Add("ValidationResult", validationException.Errors);
+
+        await context.Response.WriteAsJsonAsync(problemDetails, cancellationToken);
+        return true;
+
     }
 
 }

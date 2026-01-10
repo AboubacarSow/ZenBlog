@@ -1,6 +1,4 @@
-
-
-namespace zenblog.infrastructure.Repositories;
+namespace zenblog.infrastructure.Persistence.Repositories;
 
 internal class RepositoryBase<TEntity>(ZenblogDbContext _context) : IRepositoryBase<TEntity> where TEntity : BaseEntity
 {

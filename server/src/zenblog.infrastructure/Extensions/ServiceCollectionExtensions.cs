@@ -1,3 +1,4 @@
+using zenblog.infrastructure.Persistence.Repositories;
 using zenBlog.infrastructure.Intercepters;
 
 namespace zenBlog.infrastructure.Extensions;
@@ -8,9 +9,9 @@ public static class ServiceCollectionExtensions
         // Infrastructure services registration goes here
         services.AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>
         {
-            options.SignIn.RequireConfirmedAccount=true;
+            // options.SignIn.RequireConfirmedAccount=true;
             options.User.RequireUniqueEmail=true;
-            options.Password.RequiredLength=6;
+            options.Password.RequiredLength=8;
         }).AddEntityFrameworkStores<ZenblogDbContext>()
         .AddDefaultTokenProviders();
 

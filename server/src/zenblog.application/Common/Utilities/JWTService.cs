@@ -8,18 +8,13 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace zenblog.application.Common.Utilities;
 
-public interface ITokenService
+internal class JWTService(IConfiguration configuration, UserManager<ApplicationUser> userManager) : IJWTService
 {
-    Task<TokenDto> CreateTokenAsync(bool populateExpireTime);
-}
-
-internal class TokenService(IConfiguration configuration, ApplicationUser user, UserManager<ApplicationUser> userManager) : ITokenService
-{
-    public async Task<TokenDto> CreateTokenAsync(bool populateExpireTime)
+    public async Task<TokenDto> CreateTokenAsync(bool populateExpireTime,ApplicationUser user)
     {
         //Generate Token Options
         var signInCredentials = GetSignInCredentials();
-        var claims =  GetClaims();
+        var claims = GetClaims(user);
         var tokenOptions = GenerateTokenOptions(signInCredentials,claims);
         var refreshToken = GenerateRefreshToken();
         user.RefreshToken = refreshToken;
@@ -54,12 +49,13 @@ internal class TokenService(IConfiguration configuration, ApplicationUser user, 
         return Convert.ToBase64String(randNumber);
     }
 
-    private List<Claim> GetClaims()
+    private static List<Claim> GetClaims(ApplicationUser user)
     {
        var claims = new List<Claim>()
        {
            new(ClaimTypes.Name, user.UserName!),
-           new (ClaimTypes.Email, user.Email!),
+           new(ClaimTypes.Email, user.Email!),
+           new(ClaimTypes.NameIdentifier, user.Id.ToString()) 
        };
 
        return claims;
@@ -74,5 +70,3 @@ internal class TokenService(IConfiguration configuration, ApplicationUser user, 
         return new SigningCredentials(key:secretKey,algorithm:SecurityAlgorithms.HmacSha256);
     }
 }
-
-public record TokenDto(string AccessToken, string RefreshToken);

@@ -28,7 +28,7 @@ public static class ServiceCollectionExtensions
             config.WithModules(modules);    
         });// Carter
 
-        services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IJWTService, JWTService>();
 
 
         var jwtsettings = configuration.GetRequiredSection("JwtSettings");
@@ -46,7 +46,7 @@ public static class ServiceCollectionExtensions
                 ValidateIssuerSigningKey = true,
                 ValidateLifetime=true,
                 ValidIssuer = jwtsettings["validIssuer"],
-                ValidAudience = jwtsettings["validAudience"],
+                ValidAudience = jwtsettings["validAudiance"],
                 IssuerSigningKey = new SymmetricSecurityKey
                 (Encoding.UTF8.GetBytes(secretKey))
             };

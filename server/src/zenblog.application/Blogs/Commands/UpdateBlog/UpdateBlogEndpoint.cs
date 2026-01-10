@@ -1,7 +1,7 @@
 namespace zenblog.application.Blogs.Commands.UpdateBlog;
 
 
-public record UpdateBlogRequest(UpdateBlogCommand Request);
+public record UpdateBlogRequest(UpdateBlogCommand Blog);
 public record UpdateBlogResponse(Guid BlogId);
 public class UpdateBlogEndpoint : ICarterModule
 {
@@ -9,12 +9,12 @@ public class UpdateBlogEndpoint : ICarterModule
     {
         app.MapPut("/api/blogs/{id:guid}", async (Guid id, UpdateBlogRequest request, ISender sender) =>
         {
-            if (id != request.Request.BlogId)
+            if (id != request.Blog.BlogId)
             {
                 return Results.BadRequest("Blog Id in the URL does not match the Blog Id in the request body.");
             }
 
-            var result = await sender.Send(request.Request);
+            var result = await sender.Send(request.Blog);
             if (!result.IsSuccess)
             {
                 return Results.BadRequest(result.Errors);

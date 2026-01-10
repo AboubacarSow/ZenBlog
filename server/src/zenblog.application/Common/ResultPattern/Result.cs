@@ -28,6 +28,7 @@ public record Result<T> : Result
     private Result(Error error) : base(false, error) { }
 
     public static Result<T> Success(T data) => new(data);
+    public static new Result<T> Failure(Error error) => new(error);
 
     public static implicit operator Result<T>(T data) => new(data);
 
@@ -49,4 +50,5 @@ public static class Errors
     public static Error AccountNotFound { get; } = new("AccountNotFound", ErrorType.NotFound, "Account not found.");
     public static Error InsufficientFunds { get; } = new("InsufficientFunds", ErrorType.Validation, "Insufficient balance.");
     public static Error FailedToCreateUser{get;}= new("RegisterUser",ErrorType.IdentityResult,"Creation of new user failded");
+    public static Error InvalidCredentials{get;}= new("InvalidCredentials",ErrorType.Unauthorized,"The provided credentials are invalid.");
 }

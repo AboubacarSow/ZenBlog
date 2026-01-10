@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace zenBlog.infrastructure.Configurations;
+namespace zenblog.infrastructure.Persistence.Configurations;
 
 public class BlogConfig : IEntityTypeConfiguration<Blog>
 {

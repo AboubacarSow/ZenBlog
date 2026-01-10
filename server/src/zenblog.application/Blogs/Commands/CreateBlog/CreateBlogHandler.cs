@@ -7,7 +7,10 @@ public record CreateBlogCommand(
     string ImageUrl,
     string CoverImageUrl,
     Guid CategoryId
-) : IRequest<Result<Guid>>;
+) : IRequest<Result<Guid>>
+{
+    public Guid? AuthorId{get;set;}
+}
 
 public class CreateBlogValidator : AbstractValidator<CreateBlogCommand>
 {
@@ -24,6 +27,9 @@ public class CreateBlogValidator : AbstractValidator<CreateBlogCommand>
         RuleFor(b => b.CategoryId)
             .NotEmpty()
             .WithMessage("Category Id is required");
+        RuleFor(b => b.AuthorId)
+            .NotEmpty()
+            .WithMessage("AuthorId is required");
     }
 }
 

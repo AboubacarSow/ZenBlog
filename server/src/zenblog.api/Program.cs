@@ -13,9 +13,12 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication(builder.Configuration);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddProblemDetails();
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+
 
 var app = builder.Build();
-
+app.UseExceptionHandler();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -23,7 +26,6 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference();
 }
 app.MapCarter();
-app.UseMiddleware<CustomExceptionHandler>();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

@@ -11,4 +11,6 @@ public class Blog: BaseEntity
     public Guid AuthorId{get;set;}=default!;
     public virtual ApplicationUser Author {get; set;}= default!;
     public virtual ICollection<Comment> Comments { get; set; } =[];
+
+    public Blog() { }
 }
