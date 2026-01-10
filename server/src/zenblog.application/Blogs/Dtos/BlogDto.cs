@@ -6,5 +6,7 @@ public record BlogDto
     string Content,
     string ImageUrl,
     string CoverImageUrl,
-    Guid CategoryId
+    Guid CategoryId,
+    DateTime CreatedAt,
+    DateTime? UpdatedAt
 );

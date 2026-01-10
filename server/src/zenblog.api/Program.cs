@@ -6,12 +6,21 @@ using zenBlog.infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
-builder.Services.AddControllers();
-builder.Services.AddScoped<CustomExceptionHandler>();
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication(builder.Configuration);
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("ZenBlogApp",
+        policy =>
+        {
+            policy.WithOrigins(
+                    "http://localhost:4200",   // Angular dev
+                    "https://localhost:4200"
+                ).AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
 builder.Services.AddOpenApi();
 builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
@@ -27,9 +36,8 @@ if (app.Environment.IsDevelopment())
 }
 app.MapCarter();
 app.UseHttpsRedirection();
-
+app.UseCors("ZenBlogApp");
 app.UseAuthorization();
 
-app.MapControllers();
 
 app.Run();

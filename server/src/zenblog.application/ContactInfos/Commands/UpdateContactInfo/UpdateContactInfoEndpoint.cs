@@ -15,6 +15,7 @@ public class UpdateContactInfoEndpoint : ICarterModule
         })
         .WithName("UpdateContactInfo")
         .WithTags("ContactInfos")
-        .WithDescription("Edits contact info");
+        .WithDescription("Edits contact info")
+        .RequireAuthorization();
     }
 }

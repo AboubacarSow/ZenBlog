@@ -15,6 +15,7 @@ public class DeleteContactInfoEndpoint : ICarterModule
             return Results.Ok(new DeleteContactInfoResponse($"Contact Info with {Id} deleted successfully"));
         }).WithName("DeleteContactInfo")
         .WithTags("ContactInfos")
-        .Produces<DeleteContactInfoResponse>();
+        .Produces<DeleteContactInfoResponse>()
+        .RequireAuthorization();
     }
 }

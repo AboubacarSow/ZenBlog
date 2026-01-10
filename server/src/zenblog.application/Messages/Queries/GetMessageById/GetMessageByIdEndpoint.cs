@@ -21,6 +21,7 @@ public class GetMessageByIdEndpoint : ICarterModule
         .WithName("GetMessageById")
         .Produces<GetMessageByIdResponse>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound)
-        .WithTags("Messages");
+        .WithTags("Messages")
+        .RequireAuthorization();
     }
 }

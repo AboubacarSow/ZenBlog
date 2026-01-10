@@ -1,0 +1,76 @@
+<div class="admin-layout">
+
+  <!-- ========== SIDEBAR ========== -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <span class="logo-accent">Zen</span>Blog
+      <span class="admin-badge">Admin</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a routerLink="/admin/dashboard" routerLinkActive="active">
+        <i class="bi bi-speedometer2"></i>
+        Dashboard
+      </a>
+
+      <a routerLink="/admin/category" routerLinkActive="active">
+        <i class="bi bi-tags"></i>
+        Categories
+      </a>
+
+      <a routerLink="/admin/blog" routerLinkActive="active">
+        <i class="bi bi-journal-text"></i>
+        Blogs
+      </a>
+
+      <a routerLink="/admin/comment" routerLinkActive="active">
+        <i class="bi bi-chat-left-text"></i>
+        Comments
+      </a>
+
+      <a routerLink="/admin/message" routerLinkActive="active">
+        <i class="bi bi-envelope"></i>
+        Messages
+      </a>
+
+      <a routerLink="/admin/contactinfo" routerLinkActive="active">
+        <i class="bi bi-telephone"></i>
+        Contact Info
+      </a>
+
+      <a routerLink="/admin/social" routerLinkActive="active">
+        <i class="bi bi-share"></i>
+        Social Networks
+      </a>
+    </nav>
+
+    <!-- User -->
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <img src="https://github.com/mdo.png" alt="avatar" />
+        <div>
+          <span class="user-name">{{ getUserName() }}</span>
+          <button class="logout-btn" (click)="logout()">Logout</button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <section class="admin-content">
+    <header class="admin-header">
+      <h1>{{ pageTitle }}</h1>
+
+      <!-- Theme toggle (optional hook) -->
+      <button class="theme-toggle">
+        <i class="bi bi-moon-stars"></i>
+      </button>
+    </header>
+
+    <div class="admin-body">
+      <router-outlet></router-outlet>
+    </div>
+  </section>
+
+</div>
+

@@ -1,7 +1,8 @@
 
 namespace zenblog.application.Blogs.Commands.DeleteBlog;
 
-public record DeleteBlogCommand(Guid BlogId): IRequest<Result>;
+public record DeleteBlogCommand(Guid BlogId, Guid AuthorId): IRequest<Result>;
+
 public class DeleteBlogValidator : AbstractValidator<DeleteBlogCommand>
 {
     public DeleteBlogValidator()
@@ -18,6 +19,8 @@ public class DeleteBlogHandler(IRepositoryBase<Blog> _repository, IUnitOfWork _u
     {
         var blog = await _repository.GetByIdAsync(command.BlogId)!;
         if(blog is null) return Errors.NotFound;
+        if(command.AuthorId!=blog.AuthorId)
+            return Errors.NotAuthorized;
         _repository.Delete(blog);
         var result = await _unitOfWork.SaveChangesAsync(cancellationToken);
         if(!result) return Errors.FailedToDelete;

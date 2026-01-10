@@ -6,7 +6,6 @@ namespace zenBlog.api.Middleware;
 
 internal class CustomExceptionHandler( ILogger<CustomExceptionHandler> logger): IExceptionHandler
 {
-    private readonly ILogger<CustomExceptionHandler> _logger = logger;
 
     public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception exception, CancellationToken cancellationToken)
     {

@@ -14,6 +14,7 @@ public class DeleteSocialMediaEndpoint : ICarterModule
         .WithTags("SocialMedias")
         .WithDescription("Removes a social media link by its ID.")
         .Produces<Guid>(StatusCodes.Status200OK)
-        .ProducesProblem(StatusCodes.Status404NotFound);
+        .ProducesProblem(StatusCodes.Status404NotFound)
+        .RequireAuthorization();
     }
 }

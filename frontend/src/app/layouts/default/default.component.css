@@ -1,0 +1,170 @@
+/* ========== GLOBAL ========== */
+.main-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.2rem;
+}
+
+.logo-accent {
+  color: #6366f1;
+}
+
+/* ========== HEADER ========== */
+.header {
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: #111827;
+}
+
+/* Nav */
+.navmenu ul {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navmenu a {
+  text-decoration: none;
+  color: #374151;
+  font-weight: 500;
+}
+
+.navmenu a.active {
+  color: #6366f1;
+}
+
+/* Actions */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn-login {
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  background: #6366f1;
+  color: white;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+}
+
+/* ========== MAIN ========== */
+.main-content {
+  flex: 1;
+  padding: 2rem 0;
+  background: #f9fafb;
+}
+
+/* ========== FOOTER ========== */
+.footer {
+  background: #111827;
+  color: #d1d5db;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  padding: 3rem 0;
+}
+
+.footer h3,
+.footer h4 {
+  color: #ffffff;
+}
+
+.footer a {
+  color: #9ca3af;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: #6366f1;
+}
+
+.social-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding: 1rem;
+  border-top: 1px solid #1f2937;
+  font-size: 0.85rem;
+}
+
+/* ========== SCROLL TOP ========== */
+.scroll-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #6366f1;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .navmenu {
+    position: absolute;
+    top: 64px;
+    right: 0;
+    background: white;
+    width: 200px;
+    display: none;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+
+  .navmenu.open {
+    display: block;
+  }
+
+  .navmenu ul {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .mobile-toggle {
+    display: block;
+  }
+}
+.scroll-top.visible {
+  display: block;
+}

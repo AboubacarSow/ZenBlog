@@ -19,6 +19,7 @@ public class DeleteCategoryEndpoint : ICarterModule
           .Produces<bool>(StatusCodes.Status200OK)
           .ProducesProblem(StatusCodes.Status404NotFound)
           .WithTags("Categories")
-          .WithDescription("Deletes a category by its unique identifier.");
+          .WithDescription("Deletes a category by its unique identifier.")
+          .RequireAuthorization();
     }
 }

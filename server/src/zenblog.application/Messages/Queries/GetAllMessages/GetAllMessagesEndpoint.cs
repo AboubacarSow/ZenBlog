@@ -14,6 +14,7 @@ public class GetAllMessagesEndpoint : ICarterModule
             return Results.Ok(response);
         }).WithName("GetMessages")
         .WithTags("Messages")
-        .Produces<GetAllMessagesResponse>();
+        .Produces<GetAllMessagesResponse>()
+        .RequireAuthorization();
     }
 }

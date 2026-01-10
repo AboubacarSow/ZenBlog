@@ -25,6 +25,7 @@ public class UpdateCategoryEndpoint : ICarterModule
         .ProducesProblem(StatusCodes.Status400BadRequest)
         .ProducesProblem(StatusCodes.Status404NotFound)
         .WithTags("Categories")
-        .WithDescription("Updates an existing category by its unique identifier.");
+        .WithDescription("Updates an existing category by its unique identifier.")
+        .RequireAuthorization();
     }
 }

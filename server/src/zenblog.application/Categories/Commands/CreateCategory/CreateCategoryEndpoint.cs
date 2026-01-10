@@ -16,6 +16,7 @@ public class CreateCategoryEndpoint : ICarterModule
         .Produces(StatusCodes.Status201Created)
         .ProducesProblem(StatusCodes.Status400BadRequest)
         .WithTags("Categories")
-        .WithDescription("Creates a new category.");
+        .WithDescription("Creates a new category.")
+        .RequireAuthorization();
     }
 }

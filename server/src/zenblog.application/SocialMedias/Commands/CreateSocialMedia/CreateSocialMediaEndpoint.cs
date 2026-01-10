@@ -14,7 +14,8 @@ public class CreateSocialMediaEndpoint : ICarterModule
         .WithTags("SocialMedias")
         .WithDescription("Adds a new social media link to the system.")
         .Produces<Guid>(StatusCodes.Status201Created)
-        .ProducesProblem(StatusCodes.Status400BadRequest);
+        .ProducesProblem(StatusCodes.Status400BadRequest)
+        .RequireAuthorization();
     }
 }
 

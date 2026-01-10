@@ -7,6 +7,4 @@ public class CategoryAutoMapper : Profile
         CreateMap<Category, CategoryDto>().ReverseMap();
     }
 }
-
-
-
+  

@@ -51,4 +51,5 @@ public static class Errors
     public static Error InsufficientFunds { get; } = new("InsufficientFunds", ErrorType.Validation, "Insufficient balance.");
     public static Error FailedToCreateUser{get;}= new("RegisterUser",ErrorType.IdentityResult,"Creation of new user failded");
     public static Error InvalidCredentials{get;}= new("InvalidCredentials",ErrorType.Unauthorized,"The provided credentials are invalid.");
+    public static Error NotAuthorized{get;}=new("NotAuthorized", ErrorType.Unauthorized,"You are not allowed to process or access to this ressource");
 }

@@ -17,6 +17,6 @@ public class GetContactInfoByIdEndpoint : ICarterModule
         .WithTags("ContactInfos")
         .Produces<ContactInfoDto>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound)
-        .WithDescription("");
+        .RequireAuthorization();
     }
 }

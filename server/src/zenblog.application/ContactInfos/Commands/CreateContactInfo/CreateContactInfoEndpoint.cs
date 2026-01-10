@@ -19,6 +19,7 @@ public class CreateContactInfoEndpoint : ICarterModule
         .WithTags("ContactInfos")
         .Produces<Result<Guid>>(StatusCodes.Status201Created)
         .Produces<Result>(StatusCodes.Status400BadRequest)
-        .WithDescription("Creates ContactInfo");
+        .WithDescription("Creates ContactInfo")
+        .RequireAuthorization();
     }
 }

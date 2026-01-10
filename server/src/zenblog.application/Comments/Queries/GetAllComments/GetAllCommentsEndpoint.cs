@@ -21,6 +21,7 @@ public class GetAllCommentsEndpoint : ICarterModule
         .WithDescription("Returns a collection of all comments stored in the system.")
         .Produces<GetCommentsResponse>(StatusCodes.Status200OK)
         .Produces<IEnumerable<Error>>(StatusCodes.Status400BadRequest)
-        .ProducesProblem(StatusCodes.Status500InternalServerError);
+        .ProducesProblem(StatusCodes.Status500InternalServerError)
+        .RequireAuthorization();
     }
 }

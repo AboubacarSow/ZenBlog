@@ -17,6 +17,7 @@ public class GetCommentByIdEndpoint : ICarterModule
         .WithDescription("Fetches a comment using its unique identifier.")
         .Produces<GetCommentByIdResponse>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound)
-        .ProducesProblem(StatusCodes.Status500InternalServerError);;
+        .ProducesProblem(StatusCodes.Status500InternalServerError)
+        .RequireAuthorization();
     }
 }

@@ -17,6 +17,7 @@ public class UpdateSocialMediaEndpoint : ICarterModule
         .WithTags("SocialMedias")
         .WithDescription("Updates a specific social media link by its ID.")
         .Produces<Guid>(StatusCodes.Status200OK)
-        .ProducesProblem(StatusCodes.Status404NotFound);
+        .ProducesProblem(StatusCodes.Status404NotFound)
+        .RequireAuthorization();
     }
 }

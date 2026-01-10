@@ -7,7 +7,10 @@ public record UpdateBlogCommand(
     string ImageUrl,
     string CoverImageUrl,
     Guid CategoryId
-) : IRequest<Result<Guid>>;
+) : IRequest<Result<Guid>>
+{
+    public Guid? AuthorId{get;set;}
+}
 
 
 public class UpdateBlogValidator : AbstractValidator<UpdateBlogCommand>
@@ -41,7 +44,8 @@ public class UpdateBlogHandler(IRepositoryBase<Blog> _repository, IUnitOfWork _u
         {
             return Errors.NotFound;
         }
-
+        if(request.AuthorId!=blog.AuthorId)
+            return Errors.NotAuthorized;
         blog.Title= request.Title;
         blog.Content= request.Content;
         blog.ImageUrl= request.ImageUrl;

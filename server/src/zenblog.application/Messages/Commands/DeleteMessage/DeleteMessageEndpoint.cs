@@ -16,7 +16,8 @@ public class DeleteMessageEndpoint : ICarterModule
         .WithDescription("Deletes a message and returns its Id.")
         .Produces<Guid>(StatusCodes.Status200OK)
         .ProducesProblem(StatusCodes.Status404NotFound)
-        .ProducesProblem(StatusCodes.Status400BadRequest);
+        .ProducesProblem(StatusCodes.Status400BadRequest)
+        .RequireAuthorization();
     }
 }
 
