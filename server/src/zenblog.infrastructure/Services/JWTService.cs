@@ -2,15 +2,15 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using zenblog.application.Interfaces;
+using zenblog.application.Utilities;
 
-namespace zenblog.application.Common.Utilities;
-
-internal class JWTService(IConfiguration configuration, UserManager<ApplicationUser> userManager) : IJWTService
+namespace zenblog.infrastructure.Services;
+internal class JWTService(IConfiguration configuration, UserManager<ApplicationUser> userManager) 
+: IJWTService
 {
-    public async Task<TokenDto> CreateTokenAsync(bool populateExpireTime,ApplicationUser user)
+    public async Task<TokenContainer> CreateTokenAsync(bool populateExpireTime,ApplicationUser user)
     {
         //Generate Token Options
         var signInCredentials = GetSignInCredentials();
@@ -23,10 +23,10 @@ internal class JWTService(IConfiguration configuration, UserManager<ApplicationU
         await userManager.UpdateAsync(user);
         var accessToken = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
 
-        return new TokenDto(
+        return new TokenContainer(
             AccessToken:accessToken,
             RefreshToken:refreshToken
-        ) ;
+        );
     }
 
     private JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials, List<Claim> claims)

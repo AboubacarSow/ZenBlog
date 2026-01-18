@@ -1,4 +1,4 @@
-using zenblog.application.Common.Utilities;
+using zenblog.application.Utilities;
 
 namespace zenblog.application.Authentication.Commands.Login;
 
@@ -15,7 +15,7 @@ public class LoginEndpoint : ICarterModule
             return Results.Ok(result.Data);
         }).WithTags("Authentication")
         .WithName("Login")
-        .Produces<TokenDto>(StatusCodes.Status200OK)
-        .Produces<TokenDto>(StatusCodes.Status400BadRequest);
+        .Produces<TokenContainer>(StatusCodes.Status200OK)
+        .Produces<TokenContainer>(StatusCodes.Status400BadRequest);
     }
 }

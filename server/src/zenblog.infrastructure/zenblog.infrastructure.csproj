@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\zenblog.domain\zenblog.domain.csproj" />
+    <ProjectReference Include="..\zenblog.application\zenblog.application.csproj" />
   </ItemGroup>
 
 </Project>

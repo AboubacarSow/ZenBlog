@@ -1,4 +1,6 @@
+using zenblog.application.Interfaces;
 using zenblog.infrastructure.Persistence.Repositories;
+using zenblog.infrastructure.Services;
 using zenBlog.infrastructure.Intercepters;
 
 namespace zenBlog.infrastructure.Extensions;
@@ -23,6 +25,8 @@ public static class ServiceCollectionExtensions
         // Repositories and Unit of Work registration
         services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IJWTService, JWTService>();
+
 
         return services;
     }

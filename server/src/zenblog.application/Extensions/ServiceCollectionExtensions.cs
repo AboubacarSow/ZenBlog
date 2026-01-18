@@ -1,6 +1,5 @@
 using Microsoft.Extensions.Configuration;
 using zenblog.application.Common.Behaviors;
-using zenblog.application.Common.Utilities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -28,7 +27,6 @@ public static class ServiceCollectionExtensions
             config.WithModules(modules);    
         });// Carter
 
-        services.AddScoped<IJWTService, JWTService>();
 
 
         var jwtsettings = configuration.GetRequiredSection("JwtSettings");

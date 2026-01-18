@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\zenblog.application\zenblog.application.csproj" />
+    <ProjectReference Include="..\zenblog.infrastructure\zenblog.infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

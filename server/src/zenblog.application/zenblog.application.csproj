@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\zenblog.infrastructure\zenblog.infrastructure.csproj" />
+    <ProjectReference Include="..\zenblog.domain\zenblog.domain.csproj" />
   </ItemGroup>
 
 </Project>
