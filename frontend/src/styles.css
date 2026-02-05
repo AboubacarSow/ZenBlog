@@ -3,3 +3,19 @@ body{
   margin: 0;
   padding: 0;
 }
+
+.alertify-danger .ajs-header {
+  background: #f7f9fa !important;
+  color: #ffcc00 !important;
+}
+
+.alertify-danger .ajs-ok {
+  background: #f3f1f1 !important;
+  color: #dc3545 !important;
+  border: 1 solid red !important;
+}
+
+.alertify-danger .ajs-cancel {
+  background: #6f777f !important;
+  color: #ffff !important;
+}

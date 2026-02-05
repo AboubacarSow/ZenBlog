@@ -20,16 +20,16 @@ export class CategoriesService {
 
   constructor(private http: HttpClient) { }
 
-  createCategory(name:string):Observable<any>{
-    return this.http.post<any>(this.POST,{name}, { observe: 'response' });
+  createCategory(name:string):Observable<Category>{
+    return this.http.post<Category>(this.POST,{name});
   }
 
   editCategory(id:Guid,name:string):Observable<any>{
     return this.http.put(this.PUT(id),{id,name})
   }
 
-  delteCategory(id:Guid){
-    this.http.delete(this.DELETE(id))
+  delteCategory(id:Guid): Observable<any>{
+    return this.http.delete(this.DELETE(id))
   }
   getCategory(id:Guid):Observable<Category | null>{
     return this.http.get<Category>(this.GET(id));

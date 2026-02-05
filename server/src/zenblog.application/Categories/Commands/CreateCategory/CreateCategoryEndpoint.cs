@@ -10,7 +10,8 @@ public class CreateCategoryEndpoint : ICarterModule
         app.MapPost("/api/categories", async (ISender sender, CreateCategoryRequest request) =>
         {
             var response = await sender.Send(new CreateCategoryCommand(request.Name));
-            return Results.CreatedAtRoute("GetCategoryById", new { id = response.Data });
+            return Results.CreatedAtRoute("GetCategoryById", new { id = response.Data },
+            new { id = response.Data, name = request.Name });
         })
         .WithName("CreateCategory")
         .Produces(StatusCodes.Status201Created)

@@ -5,6 +5,7 @@ import { CategoriesService } from '../../../services/categories.service';
 import {Modal} from 'bootstrap'
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import *  as alertify from 'alertifyjs'
+import { Guid } from '../../../models/guid.type';
 
 
 @Component({
@@ -59,6 +60,7 @@ export class CategoryListComponent implements OnInit{
     }
   }
 
+
   openAddModal(){
     const modalElement = document.getElementById('addModal')
     if(modalElement){
@@ -77,22 +79,16 @@ export class CategoryListComponent implements OnInit{
 
     this.categoryService.createCategory(category_name).subscribe({
       next:response=>{
-        const location = response.headers.get('Location');
-
-        if (location) {
-        const index = location.split('/').pop();
-        const new_category : Category ={
-          id:index,
-          name:category_name
-        }
-         this.categories.push(new_category)
+        if (response) {
+         this.categories.push(response)
           this.submitted = false;
           this.isLoading = false;
+          const modelEl = document.getElementById('addModal')
+          Modal.getInstance(modelEl!)?.hide();
           alertify.success('Add operation successed!')
           return;
         }
         else{
-          console.log(response.headers.get('Location'))
           alertify.error('Something went wrong')
         }
       },
@@ -133,8 +129,29 @@ export class CategoryListComponent implements OnInit{
 
   }
 
-  delete(arg0: any) {
-  throw new Error('Method not implemented.');
+  delete(id: Guid, name:string) {
+    const dialog = alertify.confirm(
+      `Deleting ${name}`,
+      'This action cannot be undone. Continue?',
+      () => {
+        this.categoryService.delteCategory(id).subscribe(() => {
+          alertify.success('Category deleted');
+          this.categories = this.categories.filter(c => c.id !== id);
+        });
+      },
+      () => {
+        alertify.message('Deletion cancelled');
+      }
+    );
+
+  dialog
+    .set('labels', { ok: 'Delete', cancel: 'Cancel' })
+    .set('closable', false)
+    .set('modal', true)
+    .set('onshow', () => {
+      (dialog as any).elements.root.classList.add('alertify-danger');
+    });
+
   }
 
 }

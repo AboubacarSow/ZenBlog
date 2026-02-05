@@ -30,7 +30,6 @@ export class AdminComponent implements OnInit{
   logout() {
     this.authService.logout()
     this.router.navigate(['/login'])
-    //window.location.reload()
     console.log('user log out')
   }
 
