@@ -8,6 +8,9 @@ import { DashboardComponent } from './components/admin/dashboard/dashboard.compo
 import { LoginComponent } from './components/authentication/login/login.component';
 import { RegisterComponent } from './components/authentication/register/register.component';
 import { AuthGuard } from './core/services/auth-guard.service';
+import { ProfileComponent } from './components/users/profile/profile.component';
+import { UserComponent } from './layouts/user/user.component';
+import { EditAddressComponent } from './components/users/edit-address/edit-address.component';
 
 export const routes: Routes = [
   { path:'', component:DefaultComponent ,
@@ -16,7 +19,6 @@ export const routes: Routes = [
     {path:'', component:HomeComponent},
   ]
   },
-
   { path:'admin',component:AdminComponent, canActivate:[AuthGuard],
     children:[
       {path:'', component:DashboardComponent},
@@ -26,6 +28,12 @@ export const routes: Routes = [
       ]
   },
   {path:'login', component : LoginComponent},
-  {path:'register', component : RegisterComponent}
+  {path:'register', component : RegisterComponent},
+  {path:'user',component : UserComponent, canActivate:[AuthGuard],
+    children:[
+      {path:'profile', component:ProfileComponent, canActivate:[AuthGuard]},
+      {path:'edit-address',component: EditAddressComponent, canActivate:[AuthGuard]}
+    ]
+  }
 
 ];
