@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink, RouterOutlet } from "@angular/router";
+import { Router, RouterLink, RouterOutlet } from "@angular/router";
 import { AuthService } from '../../core/services/auth.service';
 import { take } from 'rxjs';
 
@@ -13,7 +13,7 @@ export class AdminComponent implements OnInit{
   pageTitle: string= 'Blog Management';
   username : string = ''
 
-  constructor(private authService: AuthService){}
+  constructor(private authService: AuthService,private router : Router){}
 
 
   ngOnInit(): void {
@@ -28,6 +28,9 @@ export class AdminComponent implements OnInit{
     return 'John Carlson'
   }
   logout() {
+    this.authService.logout()
+    this.router.navigate(['/login'])
+    //window.location.reload()
     console.log('user log out')
   }
 
