@@ -15,8 +15,8 @@
 /* ========== SIDEBAR ========== */
 .sidebar {
   width: 300px;
-  background: rgb(21, 29, 48);
-  color: #d1d5db;
+  background: rgb(18, 52, 132);
+  color: #ffffff;
   display: flex;
   flex-direction: column;
 }
@@ -47,7 +47,7 @@
 }
 
 .sidebar-nav a {
-  color: #9ca3af;
+  color: #ffffff;
   text-decoration: none;
   padding: 0.6rem 0.8rem;
   border-radius: 6px;
@@ -55,10 +55,11 @@
   align-items: center;
   gap: 0.6rem;
   font-size: 0.95rem;
+  cursor: pointer;
 }
 
 .sidebar-nav a:hover {
-  background: #1f2937;
+  background: #547db5;
   color: #ffffff;
 }
 
@@ -137,3 +138,40 @@
   padding: 1.5rem;
   overflow-y: auto;
 }
+
+.pageTitle{
+  color: rgb(18, 52, 132);
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: visible;
+}
+
+.user-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.user-btn img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.user-name {
+  font-weight: 500;
+  color: #547db5;
+}
+
+.dropdown-menu {
+  min-width: 220px;
+  z-index: 1055;
+}
+

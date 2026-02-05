@@ -3,3 +3,7 @@ export interface Category{
   id:Guid,
   name:string;
 }
+
+export interface GetAllCategories{
+  categories:Category[]
+}

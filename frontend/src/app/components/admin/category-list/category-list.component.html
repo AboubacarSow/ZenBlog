@@ -1,22 +1,89 @@
-<h3>Categories</h3>
+<div class="d-flex justify-content-between mb-2">
+
+  <h3 class="title">Categories</h3>
+  <button class="btn add-btn" (click)="openAddModal()"> <i class="fa fa-plus me-2"></i> Add New Category </button>
+</div>
 
 <table class="table table-bordered table-hover">
   <thead>
 
 
     <tr>
-      <th>#</th>
+      <th>No.</th>
       <th>Name</th>
       <th>Options</th>
     </tr>
   </thead>
-<tbody>
+<tbody *ngIf="categories">
   <tr *ngFor="let item of categories; let i = index;">
     <th>{{i+1}}</th>
     <td>{{item.name}}</td>
-    <td>
-      <button class="btn btn-outline-danger" (click)="delete(item.id)"> <i class="fa fa-trash"></i>  </button>
+    <td class="d-flex gap-2">
+      <button class="btn btn-secondary"
+       (click)="openEditModal(item)"> <i class="fa fa-edit me-2"></i> Edit
+      </button>
+      <button class="btn btn-outline-danger" (click)="delete(item.id)"> <i class="fa fa-trash me-2"></i> Delete </button>
     </td>
   </tr>
 </tbody>
 </table>
+
+
+<!-- Edit modal-->
+
+<div class="modal fade" id="editModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editing Blog</h5>
+        <button class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="editForm" (ngSubmit)="save()">
+          <input formControlName="name" type="hidden">
+          <label class="form-label">Name</label>
+          <input
+            type="text"
+            formControlName="name"
+            class="form-control">
+          <span class="text-danger" *ngIf="submitted && editForm.get('name')?.hasError('required')">
+            Name is required
+          </span>
+          <button type="submit" class="btn btn-secondary mt-2" [disabled]="isSaving">
+             <span>{{isSaving ? 'Saving' : 'Save Changes'}} </span>
+          </button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Add Modal-->
+<div class="modal fade" id="addModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Blog</h5>
+        <button class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="addForm" (ngSubmit)="create()">
+          <input formControlName="name" type="hidden">
+          <label class="form-label">Name</label>
+          <input
+            type="text"
+            formControlName="name"
+            class="form-control">
+          <span class="text-danger" *ngIf="submitted && editForm.get('name')?.hasError('required')">
+            Name is required
+          </span>
+          <button type="submit" class="btn btn-primary mt-2" [disabled]="isLoading">
+             <span>{{isLoading ? 'Creating' : ' Add'}} </span>
+          </button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+

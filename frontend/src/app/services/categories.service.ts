@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.dev';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Category } from '../models/category.model';
+import { Category, GetAllCategories } from '../models/category.model';
 import { Guid } from '../models/guid.type';
 
 @Injectable({
@@ -20,22 +20,22 @@ export class CategoriesService {
 
   constructor(private http: HttpClient) { }
 
-  createCategory(name:string):Observable<Category>{
-    return this.http.post<Category>(this.POST,{name});
+  createCategory(name:string):Observable<any>{
+    return this.http.post<any>(this.POST,{name}, { observe: 'response' });
   }
 
-  editCategory(id:Guid,name:string){
-    this.http.put(this.PUT(id),{id,name})
+  editCategory(id:Guid,name:string):Observable<any>{
+    return this.http.put(this.PUT(id),{id,name})
   }
 
   delteCategory(id:Guid){
     this.http.delete(this.DELETE(id))
   }
-  getCategory(id:Guid):Observable<Category>{
+  getCategory(id:Guid):Observable<Category | null>{
     return this.http.get<Category>(this.GET(id));
   }
-  getAllCategories():Observable<Category[]>{
-    return this.http.get<Category[]>(this.GETALL);
+  getAllCategories():Observable<GetAllCategories>{
+    return this.http.get<GetAllCategories>(this.GETALL);
   }
-  
+
 }

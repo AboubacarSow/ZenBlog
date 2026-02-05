@@ -53,9 +53,10 @@ internal class JWTService(IConfiguration configuration, UserManager<ApplicationU
     {
        var claims = new List<Claim>()
        {
-           new(ClaimTypes.Name, user.UserName!),
-           new(ClaimTypes.Email, user.Email!),
-           new(ClaimTypes.NameIdentifier, user.Id.ToString()) 
+           new(JwtRegisteredClaimNames.Name, user.UserName!),
+           new(JwtRegisteredClaimNames.Email, user.Email!),
+           new(JwtRegisteredClaimNames.NameId, user.Id.ToString()),
+           new ("fullname", string.Concat(user.FirstName,' ',user.LastName))
        };
 
        return claims;

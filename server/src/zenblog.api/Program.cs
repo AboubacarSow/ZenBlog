@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication(builder.Configuration);
+builder.Services.AddAuthorization();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("ZenBlogApp",
@@ -37,6 +38,8 @@ if (app.Environment.IsDevelopment())
 app.MapCarter();
 app.UseHttpsRedirection();
 app.UseCors("ZenBlogApp");
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 
